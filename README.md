@@ -37,12 +37,7 @@
 
 - belongs_to :user
 - has_one :orders
-  extend ActiveHash::Associations::ActiveRecordExtensions
-- belongs_to :category
-- belongs_to :condition
-- belongs_to :shipping_fee
-- belongs_to :shipping_area
-- belongs_to :shipping_days
+
 
 ## Orders テーブル(購入記録)
 
@@ -75,5 +70,4 @@
 ### Association
 
 - belongs_to :order
-  extend ActiveHash::Associations::ActiveRecordExtensions
-- belongs_to :prefecture
+
