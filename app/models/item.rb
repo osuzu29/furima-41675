@@ -1,12 +1,23 @@
 class Item < ApplicationRecord
-  t.string :name, null: false
-  t.text :description, null: false
-  t.integer :category_id, null: false
-  t.integer :condition_id, null: false
-  t.integer :shipping_fee_id, null: false
-  t.integer :prefecture_id, null: false
-  t.integer :shipping_day_id, null: false
-  t.integer :price, null: false
-  t.references :user, null: false, foreign_key: true
-  t.timestamps
+  belongs_to :user
+  has_one :order
+  has_one_attached :image
+  
+  extend ActiveHash::Associations::ActiveRecordExtensions
+  belongs_to :category
+  belongs_to :condition
+  belongs_to :shipping_fee
+  belongs_to :prefectur
+  belongs_to :shipping_day
+  
+  validates :name, :string, presence: true
+  validates :description, :text, presence: true
+  validates :price, :integer, presence: true
+  validates :image, presence: true
+  
+  validates :category_id, numericality: { other_than: 1 , message: "can't be blank"}
+  validates :condition_id, numericality: { other_than: 1 , message: "can't be blank"}
+  validates :shipping_fee_id, numericality: { other_than: 1 , message: "can't be blank"}
+  validates :prefectur_id, numericality: { other_than: 1 , message: "can't be blank"}
+  validates :shipping_day_id, numericality: { other_than: 1 , message: "can't be blank"}
 end
