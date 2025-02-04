@@ -37,7 +37,9 @@ require 'rails_helper'
           @order_shipping_address.prefecture_id = nil
           @order_shipping_address.valid?
           expect(@order_shipping_address.errors.full_messages).to include("Prefecture can't be blank")
+        end
 
+        it '都道府県に「---」が選択されていると保存できない' do
           @order_shipping_address.prefecture_id = 1
           @order_shipping_address.valid?
           expect(@order_shipping_address.errors.full_messages).to include("Prefecture can't be blank")
