@@ -2,6 +2,9 @@ class OrdersController < ApplicationController
   before_action :set_item
   before_action :authenticate_user!
   before_action :set_gon, only: [:index]
+  before_action :authenticate_user!  
+  before_action :move_to_index, only: [:index]
+  before_action :soldout_to_index, only: [:index]
   
 def index
   @order_shipping_address = OrderShippingAddress.new
@@ -39,5 +42,17 @@ private
 
   def set_gon
     gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
+  end
+
+  def move_to_index
+    if current_user == @item.user
+    redirect_to root_path
+    end
+  end
+    
+  def soldout_to_index
+    if @item.order.present?
+    redirect_to root_path
+    end
   end
 end
