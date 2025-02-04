@@ -63,15 +63,19 @@ require 'rails_helper'
           expect(@order_shipping_address.errors.full_messages).to include("Phone number can't be blank")
         end
 
-        it '電話番号が不正な形式だと保存できない' do
+        it '電話番号が英語だと保存できない' do
           @order_shipping_address.phone_number = 'abcdefghij'
           @order_shipping_address.valid?
           expect(@order_shipping_address.errors.full_messages).to include("Phone number is invalid")
+        end
 
+        it '電話番号が全角数字だと保存できない' do
           @order_shipping_address.phone_number = '１２３４５６７８９０'
           @order_shipping_address.valid?
           expect(@order_shipping_address.errors.full_messages).to include("Phone number is invalid")
+        end
 
+        it '電話番号の数字が少ないと保存できない' do
           @order_shipping_address.phone_number = '123'
           @order_shipping_address.valid?
           expect(@order_shipping_address.errors.full_messages).to include("Phone number is invalid")
